@@ -1,691 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nithin Neelakandan E - Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<title>Nithin Neelakandan E – XP Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #1e293b;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
-            min-height: 100vh;
-        }
+<style>
+:root{
+ --xp-blue:#0a246a;
+ --xp-light:#3a6ea5;
+ --xp-win:#ece9d8;
+ --xp-dark:#404040;
+}
+*{box-sizing:border-box;font-family:Tahoma,Verdana,sans-serif}
+body{
+ margin:0;height:100vh;overflow:hidden;
+ background:url("https://i.imgur.com/zvWTUVu.jpg") center/cover fixed;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+/* DESKTOP */
+.desktop{position:relative;height:calc(100vh - 40px);padding:20px}
 
-        /* Header & Navigation */
-         <header>
-        <nav class="container">
-            <div class="logo">
-                <span>🚀</span>
-                <span>Developer Portfolio</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
+/* WINDOW */
+.window{
+ position:absolute;width:520px;background:var(--xp-win);
+ border:2px solid var(--xp-dark);
+ box-shadow:inset 2px 2px white,inset -2px -2px #808080;
+}
+.title{
+ height:28px;padding:4px 8px;color:white;font-weight:bold;
+ background:linear-gradient(to right,var(--xp-blue),var(--xp-light));
+ display:flex;justify-content:space-between;align-items:center;
+ cursor:move;
+}
+.ctrl span{
+ background:#d6d6ce;border:1px solid #404040;
+ width:18px;height:18px;display:inline-flex;
+ align-items:center;justify-content:center;cursor:pointer;
+}
+.content{padding:12px;background:#f5f4ea;font-size:14px}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
+/* TASKBAR */
+.taskbar{
+ position:fixed;bottom:0;width:100%;height:40px;
+ background:linear-gradient(#245edc,#1b4fb3);
+ display:flex;align-items:center;padding:0 8px;
+}
+.start{
+ background:#3dbf4a;color:white;font-weight:bold;
+ padding:6px 14px;border-radius:4px;cursor:pointer;
+}
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #0369a1;
-        }
+/* START MENU */
+#startMenu{
+ position:fixed;bottom:40px;left:0;width:240px;
+ background:var(--xp-win);border:2px solid var(--xp-dark);
+ display:none;
+}
+#startMenu div{padding:8px 10px;cursor:pointer}
+#startMenu div:hover{background:#316ac5;color:white}
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+/* CMD */
+.cmd{background:black;color:#00ff00;font-family:Consolas;height:220px;overflow:auto;padding:6px}
+.cmd-line{display:flex}
+.cmd-line span{margin-right:4px}
+.cmd-input{flex:1;background:black;color:#00ff00;border:none;outline:none}
 
-        .nav-links a {
-            color: #475569;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-weight: 500;
-        }
+/* WIDGETS */
+.widgets{position:absolute;right:20px;top:20px;width:220px}
+.widget{
+ background:var(--xp-win);border:2px solid var(--xp-dark);
+ box-shadow:inset 2px 2px white,inset -2px -2px #808080;
+ padding:10px;margin-bottom:12px;font-size:13px;
+}
 
-        .nav-links a:hover {
-            color: #0369a1;
-        }
+/* XP ERROR */
+#xpErrorDialog{
+ display:none;position:fixed;top:35%;left:50%;
+ transform:translate(-50%,-50%);width:320px;
+ background:#ece9d8;border:2px solid #404040;z-index:9999;
+}
+#xpErrorDialog .header{
+ background:linear-gradient(to right,#0a246a,#3a6ea5);
+ color:white;padding:6px;font-weight:bold;
+}
+#xpErrorDialog .body{padding:12px;font-size:13px}
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(125, 211, 252, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(186, 230, 253, 0.3) 0%, transparent 50%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #0369a1, #0284c7, #0ea5e9);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            color: #64748b;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #0ea5e9, #38bdf8);
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
-            animation: fadeInUp 1s ease 0.4s both;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
-        }
-
-        /* Sections */
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #0369a1;
-        }
-
-        /* About Section */
-        .about {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-image {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #7dd3fc, #38bdf8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: white;
-            margin: 0 auto;
-            box-shadow: 0 8px 32px rgba(125, 211, 252, 0.3);
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #475569;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .skill-card {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(186, 230, 253, 0.3);
-            box-shadow: 0 4px 24px rgba(125, 211, 252, 0.1);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 32px rgba(125, 211, 252, 0.2);
-        }
-
-        .skill-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #0ea5e9;
-        }
-
-        .skill-card h3 {
-            color: #1e293b;
-            margin-bottom: 0.5rem;
-        }
-
-        .skill-card p {
-            color: #64748b;
-        }
-
-        /* Projects Section */
-        .projects {
-            background: rgba(248, 250, 252, 0.8);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(186, 230, 253, 0.3);
-            box-shadow: 0 4px 24px rgba(125, 211, 252, 0.1);
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(125, 211, 252, 0.2);
-        }
-
-        .project-image {
-            height: 200px;
-            background: linear-gradient(45deg, #7dd3fc, #38bdf8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #0369a1;
-        }
-
-        .project-description {
-            color: #64748b;
-            margin-bottom: 1rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tech-tag {
-            background: rgba(125, 211, 252, 0.2);
-            color: #0369a1;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(125, 211, 252, 0.3);
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-link {
-            color: #0ea5e9;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: #0369a1;
-        }
-
-        /* Contact Section */
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-
-        .contact-info h3 {
-            color: #0369a1;
-            margin-bottom: 1rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            color: #64748b;
-        }
-
-        .contact-icon {
-            margin-right: 1rem;
-            color: #0ea5e9;
-        }
-
-        .contact-form {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(186, 230, 253, 0.3);
-            box-shadow: 0 4px 24px rgba(125, 211, 252, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #374151;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid rgba(186, 230, 253, 0.5);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #374151;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
-        }
-
-        .submit-btn {
-            background: linear-gradient(45deg, #0ea5e9, #38bdf8);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(255, 255, 255, 0.8);
-            text-align: center;
-            padding: 2rem 0;
-            color: #64748b;
-            border-top: 1px solid rgba(186, 230, 253, 0.3);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+/* MOBILE */
+@media(max-width:768px){
+ .window{width:92%!important;left:4%!important}
+ .widgets{position:static;width:100%}
+ .title{cursor:default}
+}
+</style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">Nithin N E</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Nithin Neelakandan E</h1>
-            <p class="subtitle">Software Developer | Autonomous Systems & Security | MCA Graduate</p>
-            <a href="#projects" class="cta-button">View My Work</a>
-        </div>
-    </section>
+<div class="desktop">
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-image">🛡️</div>
-                <div class="about-text">
-                    <p>Hello! I'm Nithin Neelakandan E, an MCA graduate from Government Engineering College Thrissur, with a strong academic foundation and a keen interest in building secure and intelligent systems. I am deeply passionate about cybersecurity, software development, and staying current with emerging technologies.</p>
-<br>
-<p>I have published a conference paper in the area of autonomous vehicle sensor security, focusing on LiDAR and camera spoofing detection. With a background in BSc Computer Science, I bring hands-on experience in cybersecurity, autonomous systems security, machine learning, and systems programming. I am a motivated, self-driven, and adaptable individual who enjoys solving complex problems and contributing to innovative, technology-driven organizations.</p>
+<!-- ABOUT -->
+<div class="window" id="about" style="top:40px;left:40px;">
+<div class="title" onmousedown="drag(event,this)">
+About Me <div class="ctrl"><span onclick="closeWin('about')">✖</span></div>
 </div>
-            </div>
-        </div>
-    </section>
+<div class="content">
+<p>Hello! I'm Nithin Neelakandan E, an MCA graduate from Government Engineering College Thrissur, with a strong academic foundation and a keen interest in building secure and intelligent systems. I am deeply passionate about cybersecurity, software development, and staying current with emerging technologies.</p>
+<br>
+<p>I have published a conference paper in the area of autonomous vehicle sensor security, focusing on LiDAR and camera spoofing detection. With a background in BSc Computer Science, I bring hands-on experience in cybersecurity, autonomous systems security, machine learning, and systems programming.</p>
+<hr>
+<i>ℹ️ Use the <b>Start</b> menu to explore more.</i>
+</div>
+</div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">🔐</div>
-                    <h3>Cybersecurity</h3>
-                    <p>Intrusion Detection, Vulnerability Assessment, Security Analysis, TPM Implementation</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">💻</div>
-                    <h3>Programming Languages</h3>
-                    <p>Python, C/C++, SQL</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🤖</div>
-                    <h3>Machine Learning & AI</h3>
-                    <p>TinyML, Edge Computing, Raspberry Pi, Sensor Data Analysis</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">☁️</div>
-                    <h3>Cloud & Systems</h3>
-                    <p>AWS, Cloud Computing, CARLA Simulator, Autonomous Systems</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- SKILLS -->
+<div class="window" id="skills" style="top:120px;left:300px;display:none">
+<div class="title" onmousedown="drag(event,this)">
+Skills <div class="ctrl"><span onclick="closeWin('skills')">✖</span></div>
+</div>
+<div class="content">
+<b>Cybersecurity</b>
+<p>Intrusion Detection, Vulnerability Assessment, Security Analysis, TPM Implementation</p>
+<hr>
+<b>Programming Languages</b>
+<p>Python, C/C++, SQL</p>
+<hr>
+<b>Machine Learning & AI</b>
+<p>TinyML, Edge Computing, Raspberry Pi, Sensor Data Analysis</p>
+<hr>
+<b>Cloud & Systems</b>
+<p>AWS, Cloud Computing, CARLA Simulator, Autonomous Systems</p>
+</div>
+</div>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">My Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">🚗</div>
-                    <div class="project-content">
-                        <h3 class="project-title">CARLA LiDAR Sensor Spoofing Detection</h3>
-                        <p class="project-description">Advanced system for detecting and mitigating LiDAR and camera sensor spoofing attacks in autonomous vehicles using CARLA simulator. Focuses on enhancing perception system security.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">CARLA</span>
-                            <span class="tech-tag">Computer Vision</span>
-                            <span class="tech-tag">Cybersecurity</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/enn25/CARLA-LIDAR" class="project-link" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-                </div>
+<!-- PROJECTS -->
+<div class="window" id="projects" style="top:80px;left:600px;display:none">
+<div class="title" onmousedown="drag(event,this)">
+Projects <div class="ctrl"><span onclick="closeWin('projects')">✖</span></div>
+</div>
+<div class="content">
 
-                <div class="project-card">
-                    <div class="project-image">🔒</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Autonomous Vehicle Security with TPM</h3>
-                        <p class="project-description">Comprehensive security solution for autonomous vehicles implementing Trusted Platform Module (TPM) to mitigate spoofing attacks and ensure data integrity.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">TPM</span>
-                            <span class="tech-tag">Cryptography</span>
-                            <span class="tech-tag">Security</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/enn25/SECURING-AUTONOMOUS-VEHICLES-MITIGATING-SPOOFING-ATTACKS-WITH-TPM" class="project-link" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-                </div>
+<b>CARLA LiDAR Sensor Spoofing Detection</b>
+<p>Advanced system for detecting and mitigating LiDAR and camera sensor spoofing attacks in autonomous vehicles using CARLA simulator.</p>
+<i>Technologies:</i> Python, CARLA, Computer Vision, Cybersecurity  
+<br><a href="https://github.com/enn25/CARLA-LIDAR" target="_blank">GitHub</a>
+<hr>
 
-                <div class="project-card">
-                    <div class="project-image">🏥</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Hospital Management with Hidden Chatbot</h3>
-                        <p class="project-description">Innovative hospital management application featuring a disguised interface with an integrated hidden chatbot spy system for enhanced security monitoring.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">GUI Development</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Security</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/enn25/Disguised-Hospital-Management-App-with-Hidden-Chatbot-Spy-App" class="project-link" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-                </div>
+<b>Autonomous Vehicle Security with TPM</b>
+<p>Comprehensive security solution for autonomous vehicles implementing Trusted Platform Module (TPM).</p>
+<i>Technologies:</i> Python, TPM, Cryptography, Security  
+<br><a href="https://github.com/enn25/SECURING-AUTONOMOUS-VEHICLES-MITIGATING-SPOOFING-ATTACKS-WITH-TPM" target="_blank">GitHub</a>
+<hr>
 
-                <div class="project-card">
-                    <div class="project-image">🛡️</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Intrusion Detection System</h3>
-                        <p class="project-description">Network intrusion detection system using Snort with Splunk visualization for real-time threat monitoring and security incident analysis.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Snort</span>
-                            <span class="tech-tag">Splunk</span>
-                            <span class="tech-tag">Network Security</span>
-                            <span class="tech-tag">SIEM</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/enn25/Intrusion-Detection-System-using-Snort-with-Splunk-Visualization" class="project-link" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<b>Hospital Management with Hidden Chatbot</b>
+<p>Innovative hospital management application featuring a disguised interface with an integrated hidden chatbot spy system.</p>
+<i>Technologies:</i> Flutter, Firebase, GUI Development, Security  
+<br><a href="https://github.com/enn25/Disguised-Hospital-Management-App-with-Hidden-Chatbot-Spy-App" target="_blank">GitHub</a>
+<hr>
 
-    <!-- Publications Section -->
-<section id="publications" class="projects">
-    <div class="container">
-        <h2 class="section-title">Publications</h2>
+<b>Intrusion Detection System</b>
+<p>Network intrusion detection system using Snort with Splunk visualization.</p>
+<i>Technologies:</i> Snort, Splunk, Network Security, SIEM  
+<br><a href="https://github.com/enn25/Intrusion-Detection-System-using-Snort-with-Splunk-Visualization" target="_blank">GitHub</a>
 
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image">📄</div>
-                <div class="project-content">
-                    <h3 class="project-title">
-                        Detection of LiDAR and Camera Sensor Spoofing in Autonomous Vehicles
-                    </h3>
+</div>
+</div>
 
-                    <p class="project-description">
-                        Published research proposing a cross-sensor spoof detection framework
-                        for autonomous vehicles, combining LiDAR–camera validation with machine
-                        learning and deep learning techniques to improve robustness against
-                        sensor spoofing attacks.
-                    </p>
+<!-- PUBLICATION -->
+<div class="window" id="pub" style="top:300px;left:300px;display:none">
+<div class="title" onmousedown="drag(event,this)">
+Publication <div class="ctrl"><span onclick="closeWin('pub')">✖</span></div>
+</div>
+<div class="content">
+<b>Detection of LiDAR and Camera Sensor Spoofing in Autonomous Vehicles</b>
+<p>Published research proposing a cross-sensor spoof detection framework combining LiDAR–camera validation with machine learning and deep learning.</p>
+<a href="https://ieeexplore.ieee.org/document/11291388" target="_blank">IEEE Xplore – PICC 2025</a>
+</div>
+</div>
 
-                    <div class="project-tech">
-                        <span class="tech-tag">Autonomous Vehicles</span>
-                        <span class="tech-tag">Cybersecurity</span>
-                        <span class="tech-tag">LiDAR</span>
-                        <span class="tech-tag">Computer Vision</span>
-                        <span class="tech-tag">Machine Learning</span>
-                    </div>
+<!-- CMD -->
+<div class="window" id="cmdWin" style="top:160px;left:120px;display:none">
+<div class="title" onmousedown="drag(event,this)">
+Command Prompt <div class="ctrl"><span onclick="closeWin('cmdWin')">✖</span></div>
+</div>
+<div class="content cmd" id="cmd">
+<div>Microsoft Windows XP [Version 5.1]</div>
+<div class="cmd-line"><span>C:\&gt;</span><input class="cmd-input" onkeydown="cmdEnter(event)"></div>
+</div>
+</div>
 
-                    <div class="project-links">
-                        <a href="https://ieeexplore.ieee.org/document/11291388"
-                           class="project-link"
-                           target="_blank">
-                            IEEE Xplore
-                        </a>
-                        <span class="project-link" style="cursor: default;">
-                            PICC 2025
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- WIDGETS -->
+<div class="widgets">
+<div class="widget"><b>🕒 Time</b><div id="clock"></div></div>
+<div class="widget"><b>👤 Profile</b><br>Nithin Neelakandan E<br>Software Developer</div>
+<div class="widget"><b>💡 Tip</b><br>Try <code>cat resume.txt</code> in Command Prompt</div>
+</div>
 
+</div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <div class="contact-item">
-                        <span class="contact-icon">📧</span>
-                        <span>nithinneelakandan25@gmail.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📱</span>
-                        <span>+91 8139824077</span>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
-                        <span>Thrissur, Kerala, India</span>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">💼</span>
-                        <span><a href="https://linkedin.com/in/nithin-n-9483a7211" target="_blank" style="color: #0ea5e9; text-decoration: none;">LinkedIn Profile</a></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- TASKBAR -->
+<div class="taskbar">
+<div class="start" onclick="toggleStart()">Start</div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Nithin Neelakandan E. All rights reserved.</p>
-        </div>
-    </footer>
+<!-- START MENU -->
+<div id="startMenu">
+<div onclick="openWin('about')">About Me</div>
+<div onclick="openWin('skills')">Skills</div>
+<div onclick="openWin('projects')">Projects</div>
+<div onclick="openWin('pub')">Publications</div>
+<div onclick="openWin('cmdWin')">Command Prompt</div>
+<div onclick="shutdownXp()">Shut Down</div>
+</div>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+<!-- XP ERROR -->
+<div id="xpErrorDialog">
+<div class="header">Windows XP</div>
+<div class="body">
+❌ <b>Unexpected Shutdown Error</b><br><br>
+Too much talent detected.<br>Please hire immediately 😄
+<br><br><button onclick="closeXpError()">OK</button>
+</div>
+</div>
 
-        // Contact form handling
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            this.reset();
-        });
+<audio id="xpShutdownSound" src="https://www.myinstants.com/media/sounds/windows-xp-shutdown.mp3"></audio>
 
-        // Add scroll effect to navigation
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 20px rgba(148, 163, 184, 0.15)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 1px 10px rgba(148, 163, 184, 0.1)';
-            }
-        });
-    </script>
+<script>
+let z=2;
+function openWin(id){let w=document.getElementById(id);w.style.display="block";w.style.zIndex=++z;startMenu.style.display="none";}
+function closeWin(id){document.getElementById(id).style.display="none";}
+function toggleStart(){startMenu.style.display=startMenu.style.display=="block"?"none":"block";}
+function drag(e,t){if(window.innerWidth<768)return;let w=t.parentElement;w.style.zIndex=++z;let x=e.clientX,y=e.clientY;document.onmousemove=ev=>{w.style.left=(ev.clientX-x+w.offsetLeft)+"px";w.style.top=(ev.clientY-y+w.offsetTop)+"px";x=ev.clientX;y=ev.clientY;};document.onmouseup=()=>document.onmousemove=null;}
+setInterval(()=>{document.getElementById("clock").innerText=new Date().toLocaleTimeString();},1000);
+function cmdEnter(e){if(e.key==="Enter"){let v=e.target.value.trim();let c=document.getElementById("cmd");if(v==="whoami")c.innerHTML+=`<div>nithin\\developer</div>`;else if(v==="cat resume.txt")c.innerHTML+=`<div>MCA Graduate | Cybersecurity | Autonomous Systems</div>`;else c.innerHTML+=`<div>'${v}' not recognized.</div>`;c.innerHTML+=`<div class="cmd-line"><span>C:\\&gt;</span><input class="cmd-input" onkeydown="cmdEnter(event)"></div>`;c.scrollTop=c.scrollHeight;e.target.remove();}}
+function shutdownXp(){startMenu.style.display="none";document.getElementById("xpShutdownSound").play();setTimeout(()=>{document.getElementById("xpErrorDialog").style.display="block"},1200);}
+function closeXpError(){document.getElementById("xpErrorDialog").style.display="none";}
+</script>
+
 </body>
 </html>
